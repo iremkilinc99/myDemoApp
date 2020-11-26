@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,18 +22,33 @@ public class App {
         return "Hello world.";
     }
 
-    public static boolean search(ArrayList<Integer> array, int e) {
+    public static int search(ArrayList<Integer> array, int e) {
       System.out.println("inside search");
-      if (array == null) return false;
-
+      
+      if (array == null) return 0 ;
+      int min_Difference = 0 ;
+      int min_index_element  = 0;
       for (int elt : array) {
-        if (elt == e) return true;
+          if( (elt - e) <= min_Difference){
+            min_Difference = (elt - e);
+            min_index_element = elt ;
+          }
       }
-      return false;
+      if (min_index_element < 0)
+          min_index_element  = min_index_element*-1 ;
+       
+      return (min_index_element%5);
     }
 
     public static void main(String[] args) {
-  
+        ArrayList<String> arr = new ArrayList<>();
+
+        arr.add("https://open.spotify.com/track/69559H9fwS6ZUONWN2knLe?si=ZXeE74rsRHWEfJxutBGEXw");
+        arr.add("https://open.spotify.com/track/1fCHR39xOuEE5221AcdJf0?si=CIxe0dwKSqyntFiorlWkSQ");
+        arr.add("https://open.spotify.com/track/0FmZTrQah0kZ5q1mgLt0Mr?si=9d2kLBbTSIuSUJvh0y0nqg");
+        arr.add("https://open.spotify.com/track/1JgkOeDMGukw4CaYTpV2qs?si=925Wac-URduYxkYRXWGyaA");
+        arr.add("https://open.spotify.com/track/6HCkDai7cXHo85eW5mBXc7?si=AWl_JPbyTF25OvEt_TktFQ");
+
         Logger logger = LogManager.getLogger(App.class);
         int port = Integer.parseInt(System.getenv("PORT"));
     
@@ -66,10 +79,10 @@ public class App {
           String input2 = req.queryParams("input2").replaceAll("\\s","");
           int input2AsInt = Integer.parseInt(input2);
 
-          boolean result = App.search(inputList, input2AsInt);
-
-          Map<String, Boolean> map = new HashMap<String, Boolean>();
-          map.put("result", result);
+          int result = App.search(inputList, input2AsInt);
+          
+          Map<String, String> map = new HashMap<String, String>();
+          map.put("Go & Listen ->", arr.get(result));
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
@@ -77,7 +90,7 @@ public class App {
         get("/compute",
             (rq, rs) -> {
               Map<String, String> map = new HashMap<String, String>();
-              map.put("result", "not computed yet!");
+              map.put("Find your new song.Enter an integer, preferably positive.", "not computed yet!");
               return new ModelAndView(map, "compute.mustache");
             },
             new MustacheTemplateEngine());
