@@ -82,7 +82,9 @@ public class App {
           int result = App.search(inputList, input2AsInt);
           
           Map<String, String> map = new HashMap<String, String>();
-          map.put("Go & Listen ->", arr.get(result));
+          String song = arr.get(result);
+          System.out.println(song);
+          map.put("Go & Listen ->",song);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
