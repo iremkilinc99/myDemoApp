@@ -22,9 +22,10 @@ public class App {
         return "Hello world.";
     }
 
-    public static int search(ArrayList<Integer> array, int e) {
+    public static int search(ArrayList<Integer> array, int e, int e2) {
       System.out.println("inside search");
-      
+      if(e2 <=e) return 0 ;
+      e = e % e2;  
       if (array == null) return 0 ;
       int min_Difference = 0 ;
       int min_index_element  = 0;
@@ -77,9 +78,11 @@ public class App {
 
 
           String input2 = req.queryParams("input2").replaceAll("\\s","");
+          String input3 = req.queryParams("input3").replaceAll("\\s","");
           int input2AsInt = Integer.parseInt(input2);
+          int input3AsInt = Integer.parseInt(input3);
 
-          int result = App.search(inputList, input2AsInt);
+          int result = App.search(inputList, input2AsInt, input2AsInt);
           
           Map<String, String> map = new HashMap<String, String>();
           String song = arr.get(result);

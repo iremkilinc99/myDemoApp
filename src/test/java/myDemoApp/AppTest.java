@@ -12,24 +12,31 @@ class AppTest {
     @Test
    public void testFound() {
       ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-      assertEquals(App.search(array, 4),1); // en kucuk doner
+      assertEquals(App.search(array, 4,5),1); // en kucuk doner
     }
 
     @Test
-    public void testNotFound() {
+    public void testFoundSmaller() {
       ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-      assertEquals(App.search(array, 5),1);
+      assertEquals(App.search(array, 5,2),0);
     }
 
     @Test
     public void testEmptyArray() {
       ArrayList<Integer> array = new ArrayList<>();
-      assertEquals(App.search(array, 1),0);
+      assertEquals(App.search(array, 1,3),0);
     }
 
     @Test
     public void testNull() {
-      assertEquals(App.search(null,56),0);
+      assertEquals(App.search(null,56,2),0);
+    }
+
+    @Test
+
+    public void testFOundSame(){
+      ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
+      assertEquals(App.search(array, 5,5), 0);
     }
 
 }
