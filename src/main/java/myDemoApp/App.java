@@ -82,7 +82,7 @@ public class App {
           int input2AsInt = Integer.parseInt(input2);
           int input3AsInt = Integer.parseInt(input3);
 
-          int result = App.search(inputList, input2AsInt, input2AsInt);
+          int result = App.search(inputList, input2AsInt, input3AsInt);
           
           Map<String, String> map = new HashMap<String, String>();
           String song = arr.get(result);
